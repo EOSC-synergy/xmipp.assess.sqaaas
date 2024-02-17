@@ -1,0 +1,45 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/2.0.0
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/I2PC/docs:
+      branch: main
+      repo: https://github.com/I2PC/docs
+    github.com/I2PC/xmipp:
+      branch: devel
+      repo: https://github.com/I2PC/xmipp
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/I2PC/xmipp git:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleepy-indigo-beaver.sh
+        container: qc.acc_fuzzy-white-catfish
+  QC.Doc:
+    repos:
+      github.com/I2PC/docs find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.craggy-yellow-penguin.sh
+        container: qc.doc_flabby-aqua-wasp
+      github.com/I2PC/docs git:
+        commands:
+        - /usr/bin/env sh .sqa/script.queasy-crimson-barnacle.sh
+        container: qc.doc_wimpy-cyan-monster
+  QC.Lic:
+    repos:
+      github.com/I2PC/xmipp licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.muzzy-sangria-birman.sh
+        container: qc.lic_ugly-corn-lemming
+  QC.Ver:
+    repos:
+      github.com/I2PC/xmipp get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.greasy-orange-spider.sh
+        container: qc.ver_whiny-zucchini-dollar
+timeout: 5400
